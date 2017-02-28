@@ -11,7 +11,6 @@ MYSQL_SOCKET=/tmp/myramdisk.sock
 MYSQL_CONFIG=/tmp/myramdisk.cnf
 
 MYSQLD=`which mysqld`
-BASEDIR=`dirname $MYSQLD`/..
 DATADIR=/Volumes/$RAMDISK_NAME/mysql
 USER=`whoami`
 
@@ -62,11 +61,12 @@ mkdir $DATADIR
 cat ${SCRIPTPATH}/my.cnf.tpl | sed "s|%DATADIR%|$DATADIR|g;s|%SOCKET%|$MYSQL_SOCKET|;s|%USER%|$USER|" > $MYSQL_CONFIG
 
 # Configure & startup mysql instance
-$BASEDIR/scripts/mysql_install_db --defaults-file=$MYSQL_CONFIG --basedir=$BASEDIR --datadir=$DATADIR
-$BASEDIR/bin/mysqld_safe --defaults-file=$MYSQL_CONFIG --basedir=$BASEDIR &
+/usr/local/bin/mysqld --initialize-insecure --basedir=/usr/local/bin --datadir=$DATADIR
+chmod -R 777 /Volumes/$RAMDISK_NAME/
+/usr/local/bin/mysqld_safe --defaults-file=$MYSQL_CONFIG --basedir=/usr/local/bin &
 sleep 2
 echo "STARTED MYSQL"
-$BASEDIR/bin/mysqladmin --defaults-file=$MYSQL_CONFIG -u root password "$MYSQL_ROOTPW"
+/usr/local/bin/mysqladmin --defaults-file=$MYSQL_CONFIG -u root password "$MYSQL_ROOTPW"
 
 trap control_c SIGINT
 wait
