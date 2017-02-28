@@ -63,10 +63,10 @@ cat ${SCRIPTPATH}/my.cnf.tpl | sed "s|%DATADIR%|$DATADIR|g;s|%SOCKET%|$MYSQL_SOC
 # Configure & startup mysql instance
 /usr/local/bin/mysqld --initialize-insecure --basedir=/usr/local/bin --datadir=$DATADIR
 chmod -R 777 /Volumes/$RAMDISK_NAME/
-/usr/local/bin/mysqld_safe --defaults-file=$MYSQL_CONFIG --basedir=/usr/local/bin &
+/usr/local/bin/mysqld_safe --defaults-file=$MYSQL_CONFIG --basedir=/usr/local/bin --datadir=$DATADIR &
 sleep 2
 echo "STARTED MYSQL"
-/usr/local/bin/mysqladmin --defaults-file=$MYSQL_CONFIG -u root password "$MYSQL_ROOTPW"
+/usr/local/bin/mysqladmin --defaults-file=$MYSQL_CONFIG -u root
 
 trap control_c SIGINT
 wait

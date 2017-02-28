@@ -8,7 +8,6 @@ user    = %USER%
 
 character-set-server = utf8
 collation-server = utf8_general_ci
-
 max_connections = 1024
 skip-external-locking
 key_buffer_size = 8M
