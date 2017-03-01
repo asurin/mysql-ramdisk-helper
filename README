@@ -5,12 +5,12 @@ will shutdown MySQL and remove the RAM disk.
 * Use of this script is ofcourse at your own risk *
 ***************************************************
 
-This script has been found to work on Mac OSX 10.6 and 10.9 and should work on all versions in between.
+This script has has been tested on MacOS 10.12, using the homebrew version of MySQL 5.7.  It might work on other versions, but likely will need the MySQL paths updated at a minimum
 
 Usefull for people not wanting to create excessive wear on, for instance, their SSD drives when
 running full-DB integration tests.
 
-By default, a 256M RAM-disk is created. The MySQL installation is accessible through a UNIX socket with the user root and the password 'secret'.
+By default, a 1024M RAM-disk is created. The MySQL installation is accessible through a UNIX socket with the user root and the password 'secret'.
 Connect to your ramdisk-mysql install like this:
 
 $ mysql -u root -p --socket=/tmp/myramdisk.sock
