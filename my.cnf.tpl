@@ -5,31 +5,35 @@ socket = %SOCKET%
 skip-networking
 datadir = %DATADIR%
 user    = %USER%
-
-character-set-server = utf8
-collation-server = utf8_general_ci
-max_connections = 1024
 skip-external-locking
-key_buffer_size = 8M
-max_allowed_packet = 1M
-# table_cache = 1024
-sort_buffer_size = 8M
-read_buffer_size = 8M
-read_rnd_buffer_size = 8M
-myisam_sort_buffer_size = 8M
-query_cache_size = 4M
-thread_cache_size = 16
-
-# a large inno-setup, as zaypay uses it exclusively
+bind-address                    = 0.0.0.0
+collation_server                = utf8_unicode_ci
+character_set_server            = utf8
+key_buffer_size                 = 256M
+max_allowed_packet              = 16M
+thread_stack                    = 256K
+thread_cache_size               = 8
+max_connections                 = 800
+wait_timeout                    = 180
+net_read_timeout                = 30
+net_write_timeout               = 30
+back_log                        = 128
+table_open_cache                = 128
+max_heap_table_size             = 32M
+query_cache_limit               = 1M
+query_cache_size                = 16M
+expire_logs_days                = 10
+max_binlog_size                 = 100M
+innodb_buffer_pool_size         = 256M
+innodb_flush_log_at_trx_commit  = 0
+sync_binlog                     = 0
+skip-federated
 innodb_data_home_dir = %DATADIR%
 innodb_data_file_path = ibdata1:10M:autoextend
 innodb_log_group_home_dir = %DATADIR%
-innodb_buffer_pool_size = 64M
-innodb_flush_method = O_DIRECT
-innodb_log_buffer_size = 8M
-innodb_flush_log_at_trx_commit = 2
-innodb_lock_wait_timeout = 50
 
 [mysqld_safe]
 socket = %SOCKET%
 
+[isamchk]
+key_buffer              = 16M
